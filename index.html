@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en-CA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Farhan Ataf Fahim" />
+    <title>Realm of Music</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #6c05f1;
+      }
+
+      header {
+        background-color: #01041f;
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 2.5em;
+      }
+
+      p {
+        margin: 10px 0;
+        font-size: 1.2em;
+      }
+
+      #menu {
+        margin: 20px;
+        text-align: center;
+      }
+
+      button {
+        margin: 5px;
+        padding: 10px 20px;
+        font-size: 1em;
+        cursor: pointer;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        background-color: #f4f4f4;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #ddd;
+      }
+
+      #selected-artist {
+        text-align: center;
+        font-size: 2em;
+        margin-top: 20px;
+      }
+
+      #song-cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 20px;
+      }
+
+      .card {
+        width: 220px;
+        margin: 10px;
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .card img {
+        width: 98%;
+        height: auto;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .card img:hover {
+        transform: scale(1.05);
+      }
+
+      .song-title {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      .song-year,
+      .song-duration {
+        font-size: 1em;
+        color: #0c0101;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #333;
+        color: white;
+      }
+
+      .artist-link {
+        color: #e0dc5a;
+        text-decoration: none;
+        margin: 5px;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+      }
+
+      /* Styles for forms */
+      .form-container {
+        display: flex;
+  flex-direction: column;
+  align-items: center; 
+  width: 70%;
+        margin: 30px;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      input[type="text"],
+input[type="email"],
+input[type="url"],
+textarea {
+  width: 70%; 
+  max-width: 600px; 
+  margin-bottom: 8px; 
+}
+
+      .form-container h2 {
+        font-size: 2em;
+        margin-bottom: 20px;
+      
+      }
+
+      input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1em;
+      }
+
+      button[type="submit"] {
+        background-color: #01041f;
+        color: white;
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #6c05f1;
+      }
+
+      .input-group {
+        margin-bottom: 10px;
+      }
+
+      .input-group label {
+        font-weight: bold;
+      }
+
+      .datalist-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .datalist-container input {
+        width: 80%;
+      }
+
+      .datalist-container select {
+        width: 18%;
+      }
+
+      
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Realm of Music</h1>
+      <p>
+        Step into the world of melodies, rhythms, and timeless tunes with Realm of Music – your
+        gateway to musical exploration.
+      </p>
+    </header>
+
+    <nav id="menu">
+      <!-- Dynamically created buttons for artist categories -->
+    </nav>
+
+    <hr />
+
+    <main>
+      <h2 id="selected-artist">
+        <!-- Dynamically updated with the selected artist's name -->
+      </h2>
+
+      <!-- Container for dynamically created song cards -->
+      <div id="song-cards-container"></div>
+
+      <!-- Newsletter Sign-up Form -->
+      <div class="form-container">
+        <h2>Sign Up for Our Newsletter</h2>
+        <form action="https://httpbin.org/post" method="POST" id="newsletter-form">
+          <div class="input-group">
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required />
+          </div>
+          <button type="submit">Subscribe</button>
+        </form>
+      </div>
+
+      <!-- New Artist Request Form -->
+      <div class="form-container">
+        <h2>Request a New Artist</h2>
+        <form action="https://httpbin.org/post" method="POST" id="artist-request-form">
+          <div class="input-group">
+            <label for="artist-name">Artist Name:</label>
+            <input type="text" id="artist-name" name="artist-name" placeholder="Enter artist's name" required />
+          </div>
+
+          <div class="datalist-container">
+            <label for="genre">Music Genre:</label>
+            <input type="text" id="genre" name="genre" list="genres" placeholder="Enter or select a genre" required />
+            <datalist id="genres">
+              <option value="Rock" />
+              <option value="Pop" />
+              <option value="Jazz" />
+              <option value="Classical" />
+              <option value="Hip Hop" />
+              <option value="Country" />
+              <option value="Blues" />
+              <option value="R&B" />
+              <option value="Electronic" />
+              <option value="Reggae" />
+            </datalist>
+          </div>
+
+          <div class="input-group">
+            <label for="social-urls">Social Media URLs:</label>
+            <input type="url" id="social-urls" name="social-urls" placeholder="Enter social media URL" />
+          </div>
+
+          <div class="input-group">
+            <label for="song-urls">Example Song or Video Links:</label>
+            <input type="url" id="song-urls" name="song-urls" placeholder="Enter a song/video link" />
+            <button type="button" id="add-url">Add Another URL</button>
+          </div>
+
+          <div class="input-group">
+            <label for="explicit">Explicit Lyrics:</label>
+            <input type="checkbox" id="explicit" name="explicit" />
+          </div>
+
+          <div class="input-group">
+            <label for="description">Why should this artist be added?</label>
+            <textarea id="description" name="description" rows="5" placeholder="Tell us more..." required></textarea>
+          </div>
+
+          <button type="submit">Submit Request</button>
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Realm of Music. All rights reserved.</p>
+    </footer>
+    <script src="./js/artists.js"></script>
+    <script src="./js/songs.js"></script>
+    <script src="./js/app.js"></script>
+    <!-- JavaScript for handling form actions -->
+    <script>
+      document.getElementById('add-url').addEventListener('click', function() {
+        const newInput = document.createElement('input');
+        newInput.type = 'url';
+        newInput.name = 'song-urls';
+        newInput.placeholder = 'Enter another song/video link';
+        document.querySelector('#song-urls').parentNode.appendChild(newInput);
+      });
+    </script>
+  </body>
+</html>
